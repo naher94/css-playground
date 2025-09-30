@@ -1,12 +1,16 @@
 <header class="header">
   <div class="header-left">
     <h1>CSS Playground</h1>
-    <p class="subtitle">box-shadow generator</p>
+    <!-- todo replace with title -->
+    <p class="subtitle">{{page.title}} generator</p>
   </div>
 
   <div class="header-nav">
-    <a href="#" class="nav-item active">box-shadow</a>
-    <a href="#" class="nav-item">border</a>
-    <a href="#" class="nav-item">text-shadow</a>
+    <!-- todo automate with the active pages -->
+    {% for my_page in site.pages %}
+      {% if my_page.title %}
+      <a class="nav-item" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
+      {% endif %}
+    {% endfor %}
   </div>
 </header>
