@@ -50,10 +50,10 @@
 
 .control-group label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
   font-weight: 500;
   color: var(--text-color);
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .slider-container {
@@ -190,7 +190,8 @@ input[type="checkbox"] {
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  color: var(--bs-muted);
+  /* Use JS-provided --preview-text (computed for readability) with a fallback */
+  color: var(--preview-text, var(--bs-muted));
   font-size: 18px;
 }
 

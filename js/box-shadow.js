@@ -49,6 +49,21 @@ function init() {
     return `rgba(${r}, ${g}, ${b}, ${alpha / 100})`;
   }
 
+  function pickReadableText(hex) {
+    // fallback if hex isn't in expected form
+    if (!hex || hex[0] !== '#' || (hex.length !== 7 && hex.length !== 4)) return '#000000';
+    // expand short form #abc -> #aabbcc
+    if (hex.length === 4) {
+      hex = '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+    }
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    // perceptive luminance (YIQ)
+    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+    return yiq >= 128 ? '#000000' : '#ffffff';
+  }
+
   function updateShadow() {
     // guard required elements
     if (!preview || !cssCode) return;
@@ -68,6 +83,14 @@ function init() {
 
     preview.style.boxShadow = boxShadow;
     preview.style.backgroundColor = backgroundColor;
+    // expose background color as a CSS variable and compute a readable text color
+    try {
+      preview.style.setProperty('--preview-bg', backgroundColor);
+      const textColor = pickReadableText(backgroundColor);
+      preview.style.setProperty('--preview-text', textColor);
+    } catch (e) {
+      // ignore in environments where setProperty isn't available
+    }
     preview.style.borderRadius = borderRadius + 'px';
     cssCode.textContent = `box-shadow: ${boxShadow};`;
   }
