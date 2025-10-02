@@ -194,6 +194,12 @@ function init() {
   });
 
   updateShadow();
+  // Expose functions to global scope for inline handlers in HTML (e.g. onclick="applyPreset('subtle')")
+  // Guard assignments so we don't overwrite in environments without window (e.g. some test runners)
+  if (typeof window !== 'undefined') {
+    window.applyPreset = applyPreset;
+    window.copyCSS = copyCSS;
+  }
 }
 
 if (document.readyState === 'loading') {
