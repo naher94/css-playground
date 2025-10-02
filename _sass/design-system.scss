@@ -1,9 +1,26 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Global reset and design tokens */
+:root {
   --card-radius: 16px;
   --card-spacing: 1.5rem;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --body-bg: #f0f0f2;
+  --text-color: #1d1d1f;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* Reset margin/padding on commonly used root elements */
+body, h1, h2, h3, p, ul, ol, figure {
+  margin: 0;
+  padding: 0;
 }
 html, body {
   height: 100%;
@@ -13,9 +30,9 @@ body {
   display: flex;
   flex-direction: column;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #f0f0f2;
+  background: var(--body-bg);
   min-height: 100vh;
-  color: #1d1d1f;
+  color: var(--text-color);
   padding: 1.5rem 1rem;
 }
 
@@ -25,7 +42,7 @@ header {
     border-radius: var(--card-radius);
     padding: 1rem 1.5rem;
     margin-bottom: var(--card-spacing);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--card-shadow);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -91,7 +108,7 @@ header {
   background: white;
   border-radius: var(--card-radius);
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--card-shadow);
   /* use full available height from the grid cell and allow internal scrolling */
   height: 100%;
   max-height: none;
