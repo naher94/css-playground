@@ -20,10 +20,10 @@
   font-size: 13px;
   font-weight: 500;
   transition: all 0.2s ease;
-}
 
-.preset-btn:hover {
-  background: #e8eaed;
+  &:hover {
+    background: #e8eaed;
+  }
 }
 
 .section-header {
@@ -170,7 +170,7 @@ input[type="checkbox"] {
   align-items: center;
   justify-content: center;
   /* min-height: 600px; */
-  height: calc(-200px + 100vh);
+  height: 100%;
 }
 
 .preview-box {

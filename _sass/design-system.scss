@@ -5,13 +5,18 @@
   --card-radius: 16px;
   --card-spacing: 1.5rem;
 }
+html, body {
+  height: 100%;
+}
 
 body {
+  display: flex;
+  flex-direction: column;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: #f0f0f2;
   min-height: 100vh;
   color: #1d1d1f;
-  padding: 40px 20px;
+  padding: 1.5rem 1rem;
 }
 
 header {
@@ -55,19 +60,41 @@ header {
   // }
 }
 
+/* make the outer container expand so internal grid can stretch to available height */
+.container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-grid {
   display: grid;
   grid-template-columns: 32rem 1fr;
   gap: var(--card-spacing);
   align-items: start;
+  /* grow to fill the space below the header */
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
-.controls-card {
+/* If content is wrapped in a .container (like index.html), make that container the two-column grid */
+.main-grid > .container {
+  display: grid;
+  grid-template-columns: 32rem 1fr;
+  gap: var(--card-spacing);
+  align-items: start;
+  min-height: 0;
+}
+
+.controls-card,
+.controls-panel {
   background: white;
   border-radius: var(--card-radius);
   padding: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  max-height: calc(100vh - 200px);
+  /* use full available height from the grid cell and allow internal scrolling */
+  height: 100%;
+  max-height: none;
   overflow-y: auto;
 
   .card-header {
