@@ -69,4 +69,30 @@ header {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e4e8;
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1d1d1f;
+    }
+
+    .mdn-link {
+      font-size: 0.75rem;
+      color: #0969da;
+      text-decoration: none;
+      font-style: italic;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
