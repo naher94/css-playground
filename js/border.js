@@ -128,6 +128,30 @@ function initBorder() {
   // expose copy for onclick
   if (typeof window !== 'undefined') window.copyCSS = copyCSS;
 
+  // border presets
+  const borderPresets = {
+    subtle: { width: 1, style: 'solid', color: '#dddddd', radius: 6 },
+    dotted: { width: 10, style: 'dotted', color: '#7e00df', radius: 64 },
+    strong: { width: 4, style: 'solid', color: '#0b0b0b', radius: 6 },
+    double: { width: 8, style: 'double', color: '#00ffea', radius: 20 },
+    rounded: { width: 17, style: 'groove', color: '#ffb5af', radius: 32 }
+  };
+
+  function applyBorderPreset(name) {
+    const p = borderPresets[name];
+    if (!p) return;
+    if (controls.width) controls.width.value = p.width;
+    if (controls.style) controls.style.value = p.style;
+    if (controls.color) controls.color.value = p.color;
+    if (controls.colorHex) controls.colorHex.value = p.color;
+    if (controls.radius) controls.radius.value = p.radius;
+    if (inputs.width) inputs.width.value = p.width;
+    if (inputs.radius) inputs.radius.value = p.radius;
+    updateBorder();
+  }
+
+  if (typeof window !== 'undefined') window.applyBorderPreset = applyBorderPreset;
+
   // wire controls
   if (controls.width) controls.width.addEventListener('input', () => syncSliderToInput('width'));
   if (controls.radius) controls.radius.addEventListener('input', () => syncSliderToInput('radius'));
