@@ -1,7 +1,8 @@
-<header class="site-header">
+<header class="header-card">
   <div class="header-left">
-    <h1>CSS Playground</h1>
-    <p class="subtitle">{{page.title}} generator</p>
+    <a href="/">
+      <h1>CSS Playground</h1>
+    </a>
   </div>
 
   <div class="header-nav">
@@ -9,6 +10,9 @@
     {% for my_page in site.pages %}
       {% if my_page.title %}
       <a class="nav-item" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
+      {% endif %}
+      {% if my_page.title == "about" %}
+        <!-- <div class="divider"></div> -->
       {% endif %}
     {% endfor %}
   </div>

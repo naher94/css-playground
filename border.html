@@ -1,6 +1,59 @@
 ---
-layout: default
+layout: page
 title: "border"
+default-css: "border: 1px solid #1d1d1f; border-radius: 8px;"
 ---
 
-this is the place for the border
+<div class="card-header">
+	<div class="card-title">border generator</div>
+	<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border" target="_blank" class="mdn-link">MDN Docs</a>
+</div>
+
+<div class="preset-buttons">
+	<button class="preset-btn" onclick="applyBorderPreset('subtle')">Subtle</button>
+	<button class="preset-btn" onclick="applyBorderPreset('dotted')">Dotted</button>
+	<button class="preset-btn" onclick="applyBorderPreset('strong')">Strong</button>
+	<button class="preset-btn" onclick="applyBorderPreset('double')">Double</button>
+	<button class="preset-btn" onclick="applyBorderPreset('rounded')">Rounded</button>
+</div>
+
+<div class="control-panel">
+	<div class="control-group">
+		<label for="border-width">Border Width</label>
+		<div class="slider-container">
+			<div class="slider-wrapper">
+				<input type="range" id="border-width" min="0" max="20" value="1">
+			</div>
+			<input type="number" class="value-input" id="border-width-input" value="1" min="0" max="20">
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label for="border-style">Border Style</label>
+		<select id="border-style">
+			<option value="solid">solid</option>
+			<option value="dashed">dashed</option>
+			<option value="dotted">dotted</option>
+			<option value="double">double</option>
+			<option value="groove">groove</option>
+		</select>
+	</div>
+
+	<div class="control-group">
+		<label for="border-color">Border Color</label>
+		<div class="color-container">
+			<input type="color" id="border-color" value="#1d1d1f">
+			<input type="text" id="border-color-hex" class="hex-input" value="#1d1d1f">
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label for="border-radius">Border Radius</label>
+		<div class="slider-container">
+			<div class="slider-wrapper">
+				<input type="range" id="border-radius" min="0" max="64" value="8">
+			</div>
+			<input type="number" class="value-input" id="border-radius-input" value="8" min="0" max="64">
+		</div>
+	</div>
+</div>

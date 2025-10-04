@@ -1,58 +1,272 @@
+/* Global reset and design tokens */
+:root {
+  --card-radius: 16px;
+  --card-spacing: 1.5rem;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --body-bg: #f0f0f2;
+  --text-color: #1d1d1f;
+  --body-font: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Load Lato via Google Fonts. Prefer adding this to the HTML head for production, but importing here is fine for development/build step. */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #f6f8fa;
-  min-height: 100vh;
-  // color: #1d1d1f;
+  height: 100%;
 }
 
-.site-header, .site-footer{
-  background: white;
-  padding: 24px 40px;
+/* Reset margin/padding on commonly used root elements */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+  padding: 0;
 }
 
-.site-footer{
-  border-top: 1px solid #e1e4e8;
+html,
+body {
+  height: 100%;
 }
 
-.site-header {
+body {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #e1e4e8;
+  flex-direction: column;
+  font-family: var(--body-font);
+  background: var(--body-bg);
+  min-height: 100vh;
+  color: var(--text-color);
+  padding: 1rem 1rem;
+}
 
-  .header-left {
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 4px;
+header {
+  &.header-card {
+    background: white;
+    border-radius: var(--card-radius);
+    padding: 1rem 1.5rem;
+    margin-bottom: var(--card-spacing);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-left{
+      a{
+        color: inherit;
+      }
     }
 
-    .subtitle {
-      font-size: 14px;
-      color: #656d76;
-      margin-bottom: 0;
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
     }
   }
 
   .header-nav {
     display: flex;
-    gap: 32px;
-    align-items: center;
+    gap: 0.5rem;
   }
 
   .nav-item {
-    font-size: 14px;
+    font-size: 1rem;
     color: #656d76;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    padding: 0.25rem 1rem;
+    border-radius: 10px;
 
     &:hover {
       color: #1d1d1f;
+      background-color: rgba(black, 0.05);
     }
   }
 
-  .nav-item.active {
-    color: #1d1d1f;
+  .divider {
+    width: 1px;
+    border-radius: 100000px;
+    background-color: rgb(225, 225, 225);
+  }
+
+  // a[href*="about.html"]{
+  //   border-right: solid 1px red;
+  // }
+}
+
+/* make the outer container expand so internal grid can stretch to available height */
+.container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 32rem 1fr;
+  gap: var(--card-spacing);
+  align-items: start;
+  /* grow to fill the space below the header */
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* If content is wrapped in a .container (like index.html), make that container the two-column grid */
+.main-grid>.container {
+  display: grid;
+  grid-template-columns: 32rem 1fr;
+  gap: var(--card-spacing);
+  align-items: start;
+  min-height: 0;
+}
+
+.controls-card,
+.controls-panel {
+  background: white;
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  /* use full available height from the grid cell and allow internal scrolling */
+  height: 100%;
+  max-height: none;
+  overflow-y: auto;
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e4e8;
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1d1d1f;
+    }
+
+    .mdn-link {
+      font-size: 0.75rem;
+      color: #0969da;
+      text-decoration: none;
+      font-style: italic;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.about-btn {
+  padding: 0.5rem 0.75rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.about-dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  width: min(600px, 90%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.about-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.dialog-content p {
+  margin: 0 0 0.75rem;
+  color: var(--text-color, #222);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  border: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.btn {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 0.45rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+dialog[open] {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.about-dialog[open] {
+  max-width: 95%;
+}
+
+.about-card {
+  background: white;
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  grid-column: 1 / 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center; /* vertical center */
+  // align-items: center;     /* horizontal center for the contained .copy-container */
+}
+
+/* Centered copy container used on pages like about.html */
+.copy-container {
+  max-width: 40rem;
+  margin-block-start: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $spacing-unit / 2;
+  padding-right: $spacing-unit / 2;
+  h1{
+    font-size: 2em;
+    font-weight: 700;
+    margin-block-end: 0.5em;
+  }
+  p{
+    font-size: 1.25em;
+    margin-block-end: 1em;
+  }
+  a{
+    text-decoration: underline;
+    color: inherit;
+    font-weight: 600;
+  }
+}
+
+@include media-query($on-palm) {
+  .copy-container {
+    padding-left: $spacing-unit / 3;
+    padding-right: $spacing-unit / 3;
   }
 }

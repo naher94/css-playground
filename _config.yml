@@ -8,13 +8,9 @@
 # Site settings
 title: CSS Playground
 description: > # this means to ignore newlines until "baseurl:"
-  A series of small, interactive tools that help visualize and compose CSS properties
+  A series of small, interactive tools that help visualize and compose CSS properties easily.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
-
-#TODO update description
-#“Visualize, tweak, and generate CSS instantly.”
-#“Small tools to style and copy CSS easily.”

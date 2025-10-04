@@ -1,14 +1,23 @@
 ---
 layout: default
 ---
-<article class="post">
+<aside class="controls-card">
+    {{content}}
+</aside>
 
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-  </header>
-
-  <div class="post-content">
-    {{ content }}
+<section class="preview-card">
+  <div class="preview-box" id="preview">
+    Preview
   </div>
 
-</article>
+  <div class="css-output-container">
+    <div class="css-output">
+      <!-- TODO update from the frontmatter of each tool -->
+      <div id="cssCode">{{default-css}}</div>
+    </div>
+    <button class="copy-btn" id="copyBtn" onclick="copyCSS()">Copy CSS</button>
+  </div>
+  {%- comment -%}
+  {%- include about-modal.html -%}
+  {%- endcomment -%}
+</section>
