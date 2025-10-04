@@ -25,8 +25,11 @@ function init() {
   const preview = document.getElementById('preview');
   const cssCode = document.getElementById('cssCode');
 
+  // Use shared utilities when available to avoid duplication
+  const utils = (typeof CSSPlaygroundUtils !== 'undefined') ? CSSPlaygroundUtils : null;
+
   function isValidHex(hex) {
-    return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hex);
+    return utils ? utils.isValidHex(hex) : /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hex);
   }
 
   function syncColorPicker(colorInput, hexInput) {
@@ -43,6 +46,7 @@ function init() {
   }
 
   function hexToRgba(hex, alpha) {
+    if (utils) return utils.hexToRgba(hex, alpha);
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
@@ -50,18 +54,17 @@ function init() {
   }
 
   function pickReadableText(hex) {
-    // fallback if hex isn't in expected form
-    if (!hex || hex[0] !== '#' || (hex.length !== 7 && hex.length !== 4)) return '#000000';
-    // expand short form #abc -> #aabbcc
-    if (hex.length === 4) {
-      hex = '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
-    }
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    // perceptive luminance (YIQ)
-    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    return yiq >= 128 ? '#000000' : '#ffffff';
+    return utils ? utils.pickReadableText(hex) : (function (h) {
+      if (!h || h[0] !== '#' || (h.length !== 7 && h.length !== 4)) return '#000000';
+      if (h.length === 4) {
+        h = '#' + h[1] + h[1] + h[2] + h[2] + h[3] + h[3];
+      }
+      const r = parseInt(h.slice(1, 3), 16);
+      const g = parseInt(h.slice(3, 5), 16);
+      const b = parseInt(h.slice(5, 7), 16);
+      const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+      return yiq >= 128 ? '#000000' : '#ffffff';
+    })(hex);
   }
 
   function updateShadow() {

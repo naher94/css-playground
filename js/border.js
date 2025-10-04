@@ -15,8 +15,10 @@ function initBorder() {
   const preview = document.getElementById('preview');
   const cssCode = document.getElementById('cssCode');
 
+  const utils = (typeof CSSPlaygroundUtils !== 'undefined') ? CSSPlaygroundUtils : null;
+
   function isValidHex(hex) {
-    return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hex);
+    return utils ? utils.isValidHex(hex) : /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hex);
   }
 
   function syncColorPicker() {
@@ -53,43 +55,38 @@ function initBorder() {
     } catch (e) {}
   }
 
-  function parseColorToRgb(input) {
-    if (!input) return null;
-    input = input.trim();
-    // hex formats
-    if (input[0] === '#') {
-      if (input.length === 4) {
-        const r = parseInt(input[1] + input[1], 16);
-        const g = parseInt(input[2] + input[2], 16);
-        const b = parseInt(input[3] + input[3], 16);
-        return { r, g, b };
-      }
-      if (input.length === 7) {
-        const r = parseInt(input.slice(1, 3), 16);
-        const g = parseInt(input.slice(3, 5), 16);
-        const b = parseInt(input.slice(5, 7), 16);
-        return { r, g, b };
-      }
-      return null;
-    }
-    // rgb/rgba formats
-    const rgbMatch = input.match(/rgba?\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})/i);
-    if (rgbMatch) {
-      return {
-        r: parseInt(rgbMatch[1], 10),
-        g: parseInt(rgbMatch[2], 10),
-        b: parseInt(rgbMatch[3], 10)
-      };
-    }
-    return null;
-  }
-
   function pickReadableText(colorInput) {
-    const rgb = parseColorToRgb(colorInput);
-    if (!rgb) return '#000000';
-    const { r, g, b } = rgb;
-    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    return yiq >= 128 ? '#000000' : '#ffffff';
+    return utils ? utils.pickReadableText(colorInput) : (function (input) {
+      // fallback simple implementation
+      const rgb = (function (inp) {
+        if (!inp) return null;
+        inp = inp.trim();
+        if (inp[0] === '#') {
+          if (inp.length === 4) {
+            return {
+              r: parseInt(inp[1] + inp[1], 16),
+              g: parseInt(inp[2] + inp[2], 16),
+              b: parseInt(inp[3] + inp[3], 16)
+            };
+          }
+          if (inp.length === 7) {
+            return {
+              r: parseInt(inp.slice(1, 3), 16),
+              g: parseInt(inp.slice(3, 5), 16),
+              b: parseInt(inp.slice(5, 7), 16)
+            };
+          }
+          return null;
+        }
+        const m = inp.match(/rgba?\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})/i);
+        if (m) return { r: parseInt(m[1], 10), g: parseInt(m[2], 10), b: parseInt(m[3], 10) };
+        return null;
+      })(colorInput);
+      if (!rgb) return '#000000';
+      const { r, g, b } = rgb;
+      const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+      return yiq >= 128 ? '#000000' : '#ffffff';
+    })(colorInput);
   }
 
   function syncSliderToInput(prop) {
