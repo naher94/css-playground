@@ -61,6 +61,12 @@ header {
     justify-content: space-between;
     align-items: center;
 
+    .header-left{
+      a{
+        color: inherit;
+      }
+    }
+
     h1 {
       font-size: 1.25rem;
       font-weight: 700;
