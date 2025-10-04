@@ -188,6 +188,7 @@ input[type="checkbox"] {
 }
 
 .preview-card {
+  position: relative;
   background: white;
   border-radius: var(--card-radius);
   padding: 60px 40px;

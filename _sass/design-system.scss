@@ -17,16 +17,26 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
 /* Reset margin/padding on commonly used root elements */
-body, h1, h2, h3, p, ul, ol, figure {
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure {
   margin: 0;
   padding: 0;
 }
-html, body {
+
+html,
+body {
   height: 100%;
 }
 
@@ -46,7 +56,7 @@ header {
     border-radius: var(--card-radius);
     padding: 1rem 1.5rem;
     margin-bottom: var(--card-spacing);
-  box-shadow: var(--card-shadow);
+    box-shadow: var(--card-shadow);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -99,7 +109,7 @@ header {
 }
 
 /* If content is wrapped in a .container (like index.html), make that container the two-column grid */
-.main-grid > .container {
+.main-grid>.container {
   display: grid;
   grid-template-columns: 32rem 1fr;
   gap: var(--card-spacing);
@@ -143,4 +153,61 @@ header {
       }
     }
   }
+}
+
+.about-btn {
+  padding: 0.5rem 0.75rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.about-dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  width: min(600px, 90%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.about-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.dialog-content p {
+  margin: 0 0 0.75rem;
+  color: var(--text-color, #222);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  border: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.btn {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 0.45rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+dialog[open] {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.about-dialog[open] {
+  max-width: 95%;
 }

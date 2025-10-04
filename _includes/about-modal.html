@@ -1,0 +1,57 @@
+<!-- About modal include: native <dialog> with minimal styles and a JS fallback -->
+<button id="aboutBtn" class="about-btn" aria-haspopup="dialog">About CSS Playground</button>
+
+<dialog id="aboutDialog" class="about-dialog" aria-labelledby="aboutTitle">
+  <form method="dialog">
+    <header>
+      <h2 id="aboutTitle">About</h2>
+    </header>
+    <div class="dialog-content">
+      <p>This playground demonstrates CSS properties and a live preview. Use the controls to the left to adjust values and copy the generated CSS with the button provided.</p>
+      <p>Implemented with the native HTML <code>&lt;dialog&gt;</code> element for a lightweight and accessible modal. Close using the Close button, ESC, or by clicking outside the dialog.</p>
+    </div>
+    <menu class="dialog-actions">
+      <button class="btn" value="cancel">Close</button>
+    </menu>
+  </form>
+</dialog>
+
+<script>
+  (function () {
+    const aboutBtn = document.getElementById('aboutBtn');
+    const dialog = document.getElementById('aboutDialog');
+
+    function openDialog() {
+      if (!dialog) return;
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        // Fallback for browsers without dialog API
+        dialog.setAttribute('open', '');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeDialog() {
+      if (!dialog) return;
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+      } else {
+        dialog.removeAttribute('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    aboutBtn && aboutBtn.addEventListener('click', openDialog);
+
+    if (dialog) {
+      dialog.addEventListener('click', function (event) {
+        if (event.target === dialog) closeDialog();
+      });
+
+      dialog.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeDialog();
+      });
+    }
+  })();
+</script>
