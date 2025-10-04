@@ -11,6 +11,9 @@
       {% if my_page.title %}
       <a class="nav-item" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
       {% endif %}
+      {% if my_page.title == "about" %}
+        <!-- <div class="divider"></div> -->
+      {% endif %}
     {% endfor %}
   </div>
 </header>
