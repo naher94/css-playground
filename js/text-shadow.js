@@ -100,14 +100,23 @@ function initTextShadow() {
     updateShadow();
   }
 
-  function syncInputToSlider(property) {
+  function syncInputToSlider(property, clamp) {
     if (!inputFields[property] || !controls[property]) return;
     var inputValue = inputFields[property].value;
+
+    if (inputValue === '' || inputValue === '-') return;
+
+    var parsed = parseFloat(inputValue);
+    if (isNaN(parsed)) return;
+
     var min = parseFloat(inputFields[property].getAttribute('min'));
     var max = parseFloat(inputFields[property].getAttribute('max'));
-    var constrainedValue = Math.max(min, Math.min(max, parseFloat(inputValue) || 0));
+    var constrainedValue = Math.max(min, Math.min(max, parsed));
+
     controls[property].value = constrainedValue;
-    inputFields[property].value = constrainedValue;
+    if (clamp) {
+      inputFields[property].value = constrainedValue;
+    }
     updateShadow();
   }
 
@@ -222,8 +231,8 @@ function initTextShadow() {
   Object.keys(inputFields).forEach(function (prop) {
     var el = inputFields[prop];
     if (!el) return;
-    el.addEventListener('input', function () { syncInputToSlider(prop); });
-    el.addEventListener('blur', function () { syncInputToSlider(prop); });
+    el.addEventListener('input', function () { syncInputToSlider(prop, false); });
+    el.addEventListener('blur', function () { syncInputToSlider(prop, true); });
   });
 
   updateShadow();
