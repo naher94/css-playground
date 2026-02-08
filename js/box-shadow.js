@@ -105,16 +105,23 @@ function init() {
     updateShadow();
   }
 
-  function syncInputToSlider(property) {
+  function syncInputToSlider(property, clamp) {
     if (!inputFields[property] || !controls[property]) return;
     const inputValue = inputFields[property].value;
+
+    if (inputValue === '' || inputValue === '-') return;
+
+    const parsed = parseFloat(inputValue);
+    if (isNaN(parsed)) return;
+
     const min = parseFloat(inputFields[property].getAttribute('min'));
     const max = parseFloat(inputFields[property].getAttribute('max'));
-
-    const constrainedValue = Math.max(min, Math.min(max, parseFloat(inputValue) || 0));
+    const constrainedValue = Math.max(min, Math.min(max, parsed));
 
     controls[property].value = constrainedValue;
-    inputFields[property].value = constrainedValue;
+    if (clamp) {
+      inputFields[property].value = constrainedValue;
+    }
     updateShadow();
   }
 
@@ -215,8 +222,8 @@ function init() {
   Object.keys(inputFields).forEach(property => {
     const inputEl = inputFields[property];
     if (!inputEl) return;
-    inputEl.addEventListener('input', () => syncInputToSlider(property));
-    inputEl.addEventListener('blur', () => syncInputToSlider(property));
+    inputEl.addEventListener('input', () => syncInputToSlider(property, false));
+    inputEl.addEventListener('blur', () => syncInputToSlider(property, true));
   });
 
   updateShadow();
