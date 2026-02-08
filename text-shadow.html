@@ -1,7 +1,109 @@
 ---
 layout: page
 title: "text-shadow"
-published: false
+default-css: "text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);"
 ---
 
-this is the place for the text-shadow
+<div class="card-header">
+  <div class="card-title">{{page.title}} generator</div>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow" target="_blank" class="mdn-link">MDN Docs</a>
+</div>
+
+<div class="preset-buttons">
+  <button class="preset-btn" onclick="applyPreset('subtle')">Subtle</button>
+  <button class="preset-btn" onclick="applyPreset('glow')">Glow</button>
+  <button class="preset-btn" onclick="applyPreset('neon')">Neon</button>
+  <button class="preset-btn" onclick="applyPreset('hard')">Hard Shadow</button>
+  <button class="preset-btn" onclick="applyPreset('retro')">Retro 3D</button>
+</div>
+
+<div class="section-header">Shadow Properties</div>
+
+<div class="control-group">
+  <label for="horizontal">Horizontal Offset</label>
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <input type="range" id="horizontal" min="-50" max="50" value="2">
+    </div>
+    <input type="number" class="value-input" id="horizontal-input" value="2" min="-50" max="50">
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="vertical">Vertical Offset</label>
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <input type="range" id="vertical" min="-50" max="50" value="2">
+    </div>
+    <input type="number" class="value-input" id="vertical-input" value="2" min="-50" max="50">
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="blur">Blur Radius</label>
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <input type="range" id="blur" min="0" max="50" value="4">
+    </div>
+    <input type="number" class="value-input" id="blur-input" value="4" min="0" max="50">
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="color">Shadow Color</label>
+  <div class="color-container">
+    <div class="color-picker-wrapper">
+      <input type="color" id="color" value="#000000">
+    </div>
+    <input type="text" class="hex-input" id="color-hex" value="#000000" placeholder="#000000">
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="opacity">Opacity</label>
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <input type="range" id="opacity" min="0" max="100" value="50">
+    </div>
+    <input type="number" class="value-input" id="opacity-input" value="50" min="0" max="100">
+  </div>
+</div>
+
+<div class="section-header">Text Properties</div>
+
+<div class="control-group">
+  <label for="text-color">Text Color</label>
+  <div class="color-container">
+    <div class="color-picker-wrapper">
+      <input type="color" id="text-color" value="#1d1d1f">
+    </div>
+    <input type="text" class="hex-input" id="text-color-hex" value="#1d1d1f" placeholder="#1d1d1f">
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="background-color">Background Color</label>
+  <div class="color-container">
+    <div class="color-picker-wrapper">
+      <input type="color" id="background-color" value="#ffffff">
+    </div>
+    <input type="text" class="hex-input" id="background-color-hex" value="#ffffff" placeholder="#ffffff">
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="font-size">Font Size</label>
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <input type="range" id="font-size" min="16" max="120" value="48">
+    </div>
+    <input type="number" class="value-input" id="font-size-input" value="48" min="16" max="120">
+  </div>
+</div>
+
+<div class="control-group">
+  <label for="preview-text-input">Preview Text</label>
+  <div class="slider-container">
+    <input type="text" class="hex-input" id="preview-text-input" value="Shadow" placeholder="Enter preview text" style="width: 100%;">
+  </div>
+</div>
