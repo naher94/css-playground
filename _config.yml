@@ -11,6 +11,9 @@ description: > # this means to ignore newlines until "baseurl:"
   CSS Playground is a collection of small, interactive tools designed to make working with CSS more fun and approachable. From visualizing tricky properties to quickly generating snippets, it's meant to be a space where you can experiment.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://css-playground.rehanbutt.com" # the base hostname & protocol for your site
+author: "Rehan Butt"
+lang: "en"
+image: "/img/favicon.png"
 
 # Build settings
 markdown: kramdown
