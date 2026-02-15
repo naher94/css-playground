@@ -1,0 +1,24 @@
+---
+layout: page
+title: "gradient"
+default-css: "background: linear-gradient(180deg, #ff0000 0%, #0000ff 100%);"
+---
+
+<div class="card-header">
+	<div class="card-title">gradient generator</div>
+	<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient" target="_blank" class="mdn-link">MDN Docs</a>
+</div>
+
+<div class="preset-buttons">
+	<button class="preset-btn" onclick="applyGradientPreset('sunset')">Sunset</button>
+	<button class="preset-btn" onclick="applyGradientPreset('ocean')">Ocean</button>
+	<button class="preset-btn" onclick="applyGradientPreset('neon')">Neon</button>
+	<button class="preset-btn" onclick="applyGradientPreset('radialGlow')">Radial Glow</button>
+	<button class="preset-btn" onclick="applyGradientPreset('conic')">Conic</button>
+	<button class="preset-btn" onclick="applyGradientPreset('stacked')">Stacked</button>
+	<button class="preset-btn" onclick="applyGradientPreset('mesh')">Faux Mesh</button>
+</div>
+
+<div id="layer-list"></div>
+
+<button class="preset-btn" id="add-layer-btn" style="width:100%; margin-top:12px;">+ Add Gradient Layer</button>
